@@ -1,0 +1,2 @@
+class CollegeDoc < Document
+end

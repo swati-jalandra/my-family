@@ -1,0 +1,2 @@
+class OfficialDoc < Document
+end

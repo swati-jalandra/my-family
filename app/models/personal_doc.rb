@@ -1,0 +1,2 @@
+class PersonalDoc < Document
+end
