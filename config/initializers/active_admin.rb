@@ -4,19 +4,36 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "My Family"
+  config.site_title = 'My Family'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
   # config.site_title_link = "/"
 
+  # Register custom style sheets
+  config.register_stylesheet 'custom.css'
+
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
   #
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
-  # config.site_title_image = "logo.png"
+  config.site_title_image = 'my-family-logo.jpeg'
+
+  config.comments = false
+
+  config.footer = 'My Family Revision v1.3'
+
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add label: proc{ display_name current_active_admin_user },
+               url: proc{  admin_users_path }  ,
+               id: 'current_user',
+               if: proc{ current_active_admin_user? }
+      admin.add_logout_button_to_menu menu
+    end
+  end
 
   # == Default Namespace
   #

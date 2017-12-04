@@ -1,5 +1,6 @@
 ActiveAdmin.register PersonalDoc do
   menu :parent => "My Documents"
+  config.comments = false
 
   permit_params :file, :type, :name, :user_id
 
@@ -33,5 +34,11 @@ ActiveAdmin.register PersonalDoc do
       end
     end
     active_admin_comments
+  end
+
+  controller do
+    def scoped_collection
+      end_of_association_chain.where(user_id: current_user.id)
+    end
   end
 end

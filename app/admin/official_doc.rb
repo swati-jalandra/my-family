@@ -34,4 +34,10 @@ ActiveAdmin.register OfficialDoc do
     end
     active_admin_comments
   end
+
+  controller do
+    def scoped_collection
+      end_of_association_chain.where(user_id: current_user.id)
+    end
+  end
 end
