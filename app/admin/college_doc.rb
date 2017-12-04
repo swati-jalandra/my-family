@@ -1,7 +1,7 @@
 ActiveAdmin.register CollegeDoc do
   menu :parent => "My Documents"
 
-  permit_params :file, :type, :name
+  permit_params :file, :type, :name, :user_id
 
   index do
     selectable_column
@@ -20,6 +20,7 @@ ActiveAdmin.register CollegeDoc do
     f.inputs 'College Doc Details' do
       f.input :name
       f.input :file, required: true, as: :file
+      f.input :user_id, :input_html => { :value => current_user.id }, as: :hidden
     end
     f.actions
   end
