@@ -32,6 +32,7 @@ ActiveAdmin.register PersonalDoc do
     end
   end
 
+  # download file directly
   member_action :download, method: :get do
     @document = Document.find(params[:id])
     send_file @document.file.path
