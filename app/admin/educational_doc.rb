@@ -1,4 +1,4 @@
-ActiveAdmin.register CollegeDoc do
+ActiveAdmin.register EducationalDoc do
   menu :parent => "My Documents"
 
   permit_params :file, :type, :name, :user_id
@@ -17,7 +17,7 @@ ActiveAdmin.register CollegeDoc do
 
 
   form do |f|
-    f.inputs 'College Doc Details' do
+    f.inputs 'Educational Doc Details' do
       f.input :name
       f.input :file, required: true, as: :file
       f.input :user_id, :input_html => { :value => current_user.id }, as: :hidden

@@ -1,2 +1,0 @@
-class CollegeDoc < Document
-end

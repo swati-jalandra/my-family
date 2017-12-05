@@ -1,0 +1,2 @@
+class EducationalDoc < Document
+end

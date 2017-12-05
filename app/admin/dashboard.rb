@@ -39,10 +39,10 @@ ActiveAdmin.register_page "Dashboard" do
         end
 
         column do
-          @college_docs = user.college_docs
-          panel "College documents - #{user.name}" do
-            if @college_docs.present?
-              table_for @college_docs do |t|
+          @educational_docs = user.educational_docs
+          panel "Educational documents - #{user.name}" do
+            if @educational_docs.present?
+              table_for @educational_docs do |t|
                 t.column("Name") { |doc| doc.name }
                 t.column("Created Date") { |doc| doc.created_at ? l(doc.created_at, :format => :long) : '-' }
               end
