@@ -14,3 +14,5 @@ Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
     zipfile.add(filename, File.join(folder, filename))
   end
 end
+
+# Public folder is getting reset during each deployment
