@@ -16,6 +16,21 @@ ActiveAdmin.register PersonalDoc do
   filter :name
   filter :file
 
+  action_item only: :index do
+    unless current_user.personal_docs.empty?
+      link_to 'Download Files', export_admin_personal_docs_path
+    end
+  end
+
+  collection_action :export, method: :get do
+    @personal_docs = current_user.personal_docs
+    unless @personal_docs.empty?
+      send_file Document.zip(@personal_docs),
+                :type => 'application/zip',
+                :disposition => 'attachment',
+                :filename => "#{current_user.name}_personal_docs.zip"
+    end
+  end
 
   form do |f|
     f.inputs 'Personal Doc Details' do

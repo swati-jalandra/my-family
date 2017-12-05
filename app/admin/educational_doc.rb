@@ -15,6 +15,21 @@ ActiveAdmin.register EducationalDoc do
   filter :name
   filter :file
 
+  action_item only: :index do
+    unless current_user.educational_docs.empty?
+      link_to 'Download Files', export_admin_educational_docs_path
+    end
+  end
+
+  collection_action :export, method: :get do
+    @educational_docs = current_user.educational_docs
+    unless @educational_docs.empty?
+      send_file Document.zip(@educational_docs),
+                :type => 'application/zip',
+                :disposition => 'attachment',
+                :filename => "#{current_user.name}_educational_docs.zip"
+    end
+  end
 
   form do |f|
     f.inputs 'Educational Doc Details' do

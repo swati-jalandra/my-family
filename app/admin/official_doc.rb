@@ -15,6 +15,21 @@ ActiveAdmin.register OfficialDoc do
   filter :name
   filter :file
 
+  action_item only: :index do
+    unless current_user.official_docs.empty?
+      link_to 'Download Files', export_admin_official_docs_path
+    end
+  end
+
+  collection_action :export, method: :get do
+    @official_docs = current_user.official_docs
+    unless @official_docs.empty?
+      send_file Document.zip(@official_docs),
+                :type => 'application/zip',
+                :disposition => 'attachment',
+                :filename => "#{current_user.name}_official_docs.zip"
+    end
+  end
 
   form do |f|
     f.inputs 'Official Doc Details' do
