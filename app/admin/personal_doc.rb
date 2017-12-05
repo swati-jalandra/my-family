@@ -8,7 +8,7 @@ ActiveAdmin.register PersonalDoc do
     selectable_column
     column :name
     column 'file' do |document|
-      link_to 'Download', document.file.url(:original, false), target: '_blank'
+      link_to 'Download', download_admin_personal_doc_path(document)
     end
     actions
   end
@@ -30,6 +30,11 @@ ActiveAdmin.register PersonalDoc do
                 :disposition => 'attachment',
                 :filename => "#{current_user.name}_personal_docs.zip"
     end
+  end
+
+  member_action :download, method: :get do
+    @document = Document.find(params[:id])
+    send_file @document.file.path
   end
 
   form do |f|
