@@ -51,7 +51,7 @@ ActiveAdmin.register PersonalDoc do
     attributes_table do
       row :name
       row :file do |document|
-        link_to 'Download', document.file.url(:original, false), target: '_blank'
+        link_to 'Download', download_admin_personal_doc_path(document)
       end
     end
     active_admin_comments

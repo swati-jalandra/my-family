@@ -8,9 +8,8 @@ class Document < ApplicationRecord
                     text/plain)
   ZIP_FILE = 'download_files.zip'
 
-  has_attached_file :file,
-                    path: ':rails_root/documents/files/:id/:style/:filename',
-                    url: '/documents/files/:id/:style/:filename'
+  has_attached_file :file
+
   belongs_to :user
 
   validates :name, presence: true

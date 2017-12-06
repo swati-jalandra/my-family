@@ -7,7 +7,7 @@ ActiveAdmin.register EducationalDoc do
     selectable_column
     column :name
     column 'file' do |document|
-      link_to 'Download', document.file.url(:original, false), target: '_blank'
+      link_to 'Download', download_admin_educational_doc_path(document)
     end
     actions
   end
@@ -31,6 +31,12 @@ ActiveAdmin.register EducationalDoc do
     end
   end
 
+  # download file directly
+  member_action :download, method: :get do
+    @document = Document.find(params[:id])
+    send_file @document.file.path
+  end
+
   form do |f|
     f.inputs 'Educational Doc Details' do
       f.input :name
@@ -44,7 +50,7 @@ ActiveAdmin.register EducationalDoc do
     attributes_table do
       row :name
       row :file do |document|
-        link_to 'Download', document.file.url(:original, false), target: '_blank'
+        link_to 'Download', download_admin_educational_doc_path(document)
       end
     end
     active_admin_comments
