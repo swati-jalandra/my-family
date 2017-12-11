@@ -37,6 +37,48 @@ class LinkedList
       return node if !node.next
     end
   end
+
+  def find(value)
+    node = head
+
+    return false if !node.next
+    return node if node.value == value
+    loop do
+      node = node.next
+      return node if node.value == value
+    end
+  end
+
+  def append_after(target, value)
+    node = find(target)
+
+    return unless node
+
+    old_next = node.next
+    node.next = Node.new(value)
+    node.next.next = old_next
+  end
+
+  def delete(value)
+    if head.value == value
+      @head = head.next
+      return
+    end
+    node = find_before(value)
+    node.next = node.next.next
+  end
+
+  def find_before(value)
+    node = head
+
+    return false if !node.next
+    return node if node.next.value == value
+
+    loop do
+      node = node.next
+      return node if node.next && node.next.value == value
+    end
+  end
 end
 
 list = LinkedList.new()
@@ -46,7 +88,19 @@ list.append(20)
 list.append(30)
 list.append(40)
 
+puts "=========== Create Single linked list ==========================>"
 puts list.inspect
+
+puts "=========== Insert node in middle ==============================>"
+
+list.append_after(10, 15)
+puts list.inspect
+
+puts "=========== Delete node ========================================>"
+list.delete(15)
+puts list.inspect
+
+
 
 
 
