@@ -7,7 +7,7 @@ ActiveAdmin.register EducationalDoc do
     selectable_column
     column :name
     column 'file' do |document|
-      link_to 'Download', download_admin_educational_doc_path(document)
+      link_to 'Download', document.file.url, target: :_blank
     end
     actions
   end

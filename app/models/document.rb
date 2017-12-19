@@ -8,7 +8,11 @@ class Document < ApplicationRecord
                     text/plain)
   ZIP_FILE = 'download_files.zip'
 
-  has_attached_file :file
+  has_attached_file :file,
+                    storage: :cloudinary,
+                    path: ':id/:style/:filename',
+                    cloudinary_credentials: Rails.root.join('config/cloudinary.yml'),
+                    cloudinary_resource_type: :raw
 
   belongs_to :user
 

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: djkn0zkll
+  api_key: '592215559114517'
+  api_secret: xZX71zNZk1om7pLFTEXNpjtaL8U
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: djkn0zkll
+  api_key: '592215559114517'
+  api_secret: xZX71zNZk1om7pLFTEXNpjtaL8U
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: djkn0zkll
+  api_key: '592215559114517'
+  api_secret: xZX71zNZk1om7pLFTEXNpjtaL8U
+  enhance_image_tag: true
+  static_image_support: false

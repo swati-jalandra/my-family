@@ -8,7 +8,7 @@ ActiveAdmin.register PersonalDoc do
     selectable_column
     column :name
     column 'file' do |document|
-      link_to 'Download', download_admin_personal_doc_path(document)
+      link_to 'Download', document.file.url, target: :_blank
     end
     actions
   end
@@ -35,7 +35,7 @@ ActiveAdmin.register PersonalDoc do
   # download file directly
   member_action :download, method: :get do
     @document = Document.find(params[:id])
-    send_file @document.file.path
+    send_file @document.file.url
   end
 
   form do |f|
