@@ -6,6 +6,10 @@ ActiveAdmin.register PersonalDoc do
 
   index do
     selectable_column
+    @index = 30 * (((params[:page] || 1).to_i) - 1) # 30 needs to set to that what your page size is
+    column :no do
+      @index += 1
+    end
     column :name
     column 'file' do |document|
       link_to 'Download', document.file.url, target: :_blank
@@ -51,7 +55,7 @@ ActiveAdmin.register PersonalDoc do
     attributes_table do
       row :name
       row :file do |document|
-        link_to 'Download', download_admin_personal_doc_path(document)
+        link_to 'Download', document.file.url, target: :_blank
       end
     end
     active_admin_comments
