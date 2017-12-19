@@ -1,4 +1,5 @@
 class Document < ApplicationRecord
+  attribute :doc_number, :integer
   CONTENT_TYPE = %w(image/jpeg
                     image/jpg
                     image/png
