@@ -50,8 +50,8 @@ gem 'pundit'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
 # implement elastic search engine
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+#gem 'elasticsearch-model'
+#gem 'elasticsearch-rails'
 # cloud storage
 gem 'paperclip-cloudinary'
 group :development, :test do

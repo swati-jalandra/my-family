@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  #include Elasticsearch::Model
+  #include Elasticsearch::Model::Callbacks
 
   has_many :personal_docs, class_name:'PersonalDoc', dependent: :destroy
   has_many :official_docs, class_name:'OfficialDoc', dependent: :destroy
@@ -16,4 +16,4 @@ class User < ApplicationRecord
   end
 end
 
-User.import force: true # for auto sync model with elastic search
+#User.import force: true # for auto sync model with elastic search
