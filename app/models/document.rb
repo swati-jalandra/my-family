@@ -20,12 +20,16 @@ class Document < ApplicationRecord
   validates :name, presence: true
   validates_attachment :file, content_type: { content_type: CONTENT_TYPE }
 
+  def cloud_path
+    open(file.url).path
+  end
+
   def self.zip(documents)
     archive = File.join(ZIP_FILE)
     File.truncate(archive, 0) if File.exist? archive
     Zip::File.open(archive, Zip::File::CREATE) do |zip_file|
       documents.each do |document|
-        zip_file.add(document.file_file_name,document.file.path)
+        zip_file.add(document.file_file_name,document.cloud_path)
       end
     end
     archive
