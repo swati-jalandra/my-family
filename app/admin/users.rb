@@ -1,31 +1,47 @@
 ActiveAdmin.register User do
-  permit_params :name, :email, :password, :password_confirmation, :is_admin
+  permit_params :first_name, :last_name, :dob, :gender, :mobileno, :address, :email, :password, :password_confirmation, :is_admin
 
   index do
     selectable_column
-    column :name
+    column "Name" do |user|
+      user.name
+    end
     column :email
-    column :current_sign_in_at
+    column :dob
+    column :gender
+    column :mobileno
+    column :address
     column :sign_in_count
+    column :last_sign_in_at
     column :is_admin
     if current_user.is_admin
       actions
     end
   end
 
-  filter :name
+  filter :first_name
+  filter :last_name
   filter :email
+  filter :dob
+  filter :gender
+  filter :mobileno
+  filter :address
   filter :current_sign_in_at
   filter :sign_in_count
   filter :is_admin
 
   form do |f|
     f.inputs do
-      f.input :name
+      f.input :first_name
+      f.input :last_name
+      f.input :dob, include_blank: false, as: :datepicker
+      f.input :gender
+      f.input :mobileno
+      f.input :address
+      f.input :is_admin
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :is_admin
     end
     f.actions
   end

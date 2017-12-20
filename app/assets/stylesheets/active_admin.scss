@@ -10,6 +10,7 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+$skinFlashColor: lightseagreen;
 @import "wigu/active_admin_theme";
 
 // Overriding any non-variable SASS must be done after the fact.

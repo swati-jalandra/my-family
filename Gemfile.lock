@@ -25,6 +25,11 @@ GIT
       railties (>= 4.2, <= 5.2)
       responders
 
+PATH
+  remote: lib/plugins/active_admin_theme
+  specs:
+    active_admin_theme (1.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,7 +56,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_admin_theme (1.0.3)
     activejob (5.1.4)
       activesupport (= 5.1.4)
       globalid (>= 0.3.6)
@@ -304,7 +308,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_admin_theme
+  active_admin_theme!
   activeadmin!
   byebug
   cancan
