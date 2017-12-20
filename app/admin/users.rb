@@ -64,4 +64,17 @@ ActiveAdmin.register User do
     end
   end
 
+  show do
+    attributes_table do
+      row :first_name
+      row :last_name
+      row :email
+      row :gender
+      row :dob
+      row :address
+      row :mobileno
+    end
+    active_admin_comments
+  end
+
 end
