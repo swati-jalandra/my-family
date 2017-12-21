@@ -6,6 +6,13 @@ ActiveAdmin.register_page "Dashboard" do
 
     # Here is an example of a simple dashboard with columns and panels.
     #
+    columns do
+      column do
+        panel "What's special today ?" do
+          render partial: 'special_day'
+        end
+      end
+    end
     @users = User.all
 
     @users.each do |user|

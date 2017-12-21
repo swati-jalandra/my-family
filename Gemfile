@@ -56,6 +56,8 @@ gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem 'paperclip-cloudinary'
 # active admin custom theme
 gem 'active_admin_theme', path: 'lib/plugins/active_admin_theme'
+# get birthday
+gem 'birthday'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

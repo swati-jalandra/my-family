@@ -1,5 +1,8 @@
 ActiveAdmin.register User do
-  permit_params :first_name, :last_name, :dob, :gender, :mobileno, :address, :email, :password, :password_confirmation, :is_admin
+  permit_params :first_name, :last_name, :dob, :gender,
+                :mobileno, :address, :email, :password,
+                :password_confirmation, :is_admin,
+                :anniversary, :status
 
   index do
     selectable_column
@@ -9,6 +12,8 @@ ActiveAdmin.register User do
     column :email
     column :dob
     column :gender
+    column :status
+    column :anniversary
     column :mobileno
     column :address
     column :sign_in_count
@@ -24,6 +29,8 @@ ActiveAdmin.register User do
   filter :email
   filter :dob
   filter :gender
+  filter :status
+  filter :anniversary
   filter :mobileno
   filter :address
   filter :current_sign_in_at
@@ -35,6 +42,8 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :dob, include_blank: false, as: :datepicker
+      f.input :status
+      f.input :anniversary, include_blank: false, as: :datepicker
       f.input :gender
       f.input :mobileno
       f.input :address
@@ -71,6 +80,8 @@ ActiveAdmin.register User do
       row :email
       row :gender
       row :dob
+      row :anniversary
+      row :status
       row :address
       row :mobileno
     end

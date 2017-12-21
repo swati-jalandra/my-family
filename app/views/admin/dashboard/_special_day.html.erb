@@ -1,0 +1,19 @@
+<marquee behavior="scroll" direction="up" height="100" scrollamount="2">
+  <p style="color: darkblue; font-size: 15px;">
+    Today is <strong><%= Time.now.utc.to_date.strftime("%A, %d/%m/%Y") %></strong>
+  </p>
+  <% User.all.each do |user| %>
+    <% if user.birthday_today? %>
+          <p style="color: darkblue; font-size: 15px;">
+            Wish you many more happy returns of the day <strong><%= user.name %></strong>
+          </p>
+    <% end %>
+  <% end %>
+  <% User.all.each do |user| %>
+      <% if user.anniversary_today? %>
+          <p style="color: darkblue; font-size: 15px;">
+            Happy wedding anniversary to you  <strong><%= user.name %></strong> & your soul mate !!!
+          </p>
+      <% end %>
+  <% end %>
+</marquee>

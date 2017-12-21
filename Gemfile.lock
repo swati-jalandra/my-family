@@ -86,6 +86,9 @@ GEM
       execjs (~> 2.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    birthday (0.3.1)
+      activerecord
+      activesupport
     builder (3.2.3)
     byebug (9.1.0)
     cancan (1.6.10)
@@ -310,6 +313,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin_theme!
   activeadmin!
+  birthday
   byebug
   cancan
   capybara (~> 2.13)
