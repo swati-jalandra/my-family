@@ -8,7 +8,7 @@ ActiveAdmin.register_page "Dashboard" do
     #
     columns do
       column do
-        panel "What's special today ?" do
+        panel "What's special today in #{Rails.env} environment ?" do
           render partial: 'special_day'
         end
       end
