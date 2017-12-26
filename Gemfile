@@ -52,6 +52,8 @@ gem 'zip-zip' # will load compatibility for old rubyzip API.
 # implement elastic search engine
 #gem 'elasticsearch-model'
 #gem 'elasticsearch-rails'
+# local storage
+gem 'paperclip'
 # cloud storage
 gem 'paperclip-cloudinary'
 # active admin custom theme

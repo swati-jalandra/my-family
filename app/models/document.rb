@@ -13,7 +13,10 @@ class Document < ApplicationRecord
                     storage: :cloudinary,
                     path: ':id/:style/:filename',
                     cloudinary_credentials: Rails.root.join('config/cloudinary.yml'),
-                    cloudinary_resource_type: :raw
+                    cloudinary_resource_type: :raw,
+                    if: Proc.new { Rails.env == 'production' }
+
+  has_attached_file :file, if: Proc.new { Rails.env == 'development' || Rails.env == 'test' }
 
   belongs_to :user
 
@@ -21,7 +24,7 @@ class Document < ApplicationRecord
   validates_attachment :file, content_type: { content_type: CONTENT_TYPE }
 
   def cloud_path
-    open(file.url).path
+    Rails.env == 'production' ? open(file.url).path : file.path
   end
 
   def self.zip(documents)

@@ -22,9 +22,7 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :last_sign_in_at
     column :is_admin
-    if current_user.is_admin
-      actions
-    end
+    actions if current_user.is_admin
   end
 
   filter :first_name
