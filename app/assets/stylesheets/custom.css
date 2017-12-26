@@ -1,3 +1,9 @@
 #site_title_image {
     height: 30%;
 }
+
+#marquee-style {
+    font-style: italic;
+    font-size: 12px;
+    background: #ecedee;
+}

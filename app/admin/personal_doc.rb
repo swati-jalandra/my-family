@@ -12,7 +12,7 @@ ActiveAdmin.register PersonalDoc do
     end
     column :name
     column 'file' do |document|
-      link_to 'Download', download_admin_personal_doc_path(document)
+      link_to document.file_file_name, download_admin_personal_doc_path(document)
     end
     actions
   end
@@ -59,7 +59,7 @@ ActiveAdmin.register PersonalDoc do
     attributes_table do
       row :name
       row :file do |document|
-        link_to 'Download', download_admin_personal_doc_path(document)
+        link_to document.file_file_name, download_admin_personal_doc_path(document)
       end
     end
     active_admin_comments

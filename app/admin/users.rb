@@ -11,6 +11,9 @@ ActiveAdmin.register User do
     end
     column :email
     column :dob
+    column "age" do |user|
+      user.age
+    end
     column :gender
     column :status
     column :anniversary
@@ -80,6 +83,9 @@ ActiveAdmin.register User do
       row :email
       row :gender
       row :dob
+      row "age" do |user|
+        user.age
+      end
       row :anniversary
       row :status
       row :address
