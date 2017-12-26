@@ -42,7 +42,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :dob, include_blank: false, as: :datepicker
-      f.input :status
+      f.input :status, as: :select, include_blank: false, collection: User::STATUS
       f.input :anniversary, include_blank: false, as: :datepicker
       f.input :gender
       f.input :mobileno
