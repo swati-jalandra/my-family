@@ -9,14 +9,15 @@ class Document < ApplicationRecord
                     text/plain)
   ZIP_FILE = 'download_files.zip'
 
-  has_attached_file :file,
-                    storage: :cloudinary,
-                    path: ':id/:style/:filename',
-                    cloudinary_credentials: Rails.root.join('config/cloudinary.yml'),
-                    cloudinary_resource_type: :raw,
-                    if: Proc.new { Rails.env == 'production' }
-
-  has_attached_file :file, if: Proc.new { Rails.env == 'development' || Rails.env == 'test' }
+  if Rails.env == 'production'
+    has_attached_file :file,
+                      storage: :cloudinary,
+                      path: ':id/:style/:filename',
+                      cloudinary_credentials: Rails.root.join('config/cloudinary.yml'),
+                      cloudinary_resource_type: :raw
+  else
+    has_attached_file :file
+  end
 
   belongs_to :user
 
