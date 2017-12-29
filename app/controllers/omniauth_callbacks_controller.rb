@@ -24,8 +24,8 @@ class OmniauthCallbacksController < ApplicationController
   end
 
   # google callback
-  def google
-    @user = User.create_from_google_data(request.env['omniauth.auth'])
+  def google_oauth2
+    @user = User.create_from_google_oauth2_data(request.env['omniauth.auth'])
     if @user.persisted?
       sign_in_and_redirect @user
       flash.notice = "Signed in!"
@@ -33,5 +33,11 @@ class OmniauthCallbacksController < ApplicationController
       flash[:error] = 'There was a problem signing you in through Google. Please register or try signing in later.'
       redirect_to new_user_session_url
     end
+  end
+
+  # redirect to failure action in case of any issues
+  def failure
+    flash[:error] = 'There was a problem signing you in. Please register or try signing in later.' 
+    redirect_to new_user_session_url
   end
 end

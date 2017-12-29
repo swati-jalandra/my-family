@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  PROVIDERS = %w(facebook github google)
+  PROVIDERS = %w(facebook github google_oauth2)
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, #:registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: PROVIDERS
 
