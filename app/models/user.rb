@@ -29,6 +29,11 @@ class User < ApplicationRecord
 
     PROVIDERS.each do |provider|
       define_method "create_from_#{provider}_data" do |provider_data|
+        user = where(email: provider_data.info.email).first
+        if user.present?
+          user.update_attributes provider: provider_data.provider, uid: provider_data.uid
+          return user
+        end  
         where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do | user |
           user.first_name = provider_data.info.name
           user.email = provider_data.info.email
