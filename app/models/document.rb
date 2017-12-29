@@ -9,6 +9,8 @@ class Document < ApplicationRecord
                     text/plain)
   ZIP_FILE = 'download_files.zip'
 
+  default_scope { order(created_at: :desc) }
+
   if Rails.env == 'production'
     has_attached_file :file,
                       storage: :cloudinary,

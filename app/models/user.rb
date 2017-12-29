@@ -1,6 +1,11 @@
 class User < ApplicationRecord
+  PROVIDERS = %w(facebook github google)
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: PROVIDERS
+
   #include Elasticsearch::Model
   #include Elasticsearch::Model::Callbacks
   STATUS = %w(single married)
@@ -16,11 +21,27 @@ class User < ApplicationRecord
   validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }, if: Proc.new { |user| user.status.present? }
   validates_presence_of :anniversary, message: "Please enter the anniversary date", if: Proc.new { |user| user.status != 'single' }
   validate :anniversary_date
-  devise :database_authenticatable, 
-         :recoverable, :rememberable, :trackable, :validatable
 
-  def self.search(text)
-    __elasticsearch__.search(text)
+  class << self
+    def search(text)
+      __elasticsearch__.search(text)
+    end
+
+    PROVIDERS.each do |provider|
+      define_method "create_from_#{provider}_data" do |provider_data|
+        where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do | user |
+          user.first_name = provider_data.info.name
+          user.email = provider_data.info.email
+          user.password = Devise.friendly_token[0, 20]
+          user.save(validate: false)
+        end
+      end
+    end
+  end
+
+  # Devise override to ignore the password requirement if the user is authenticated with Google / Facebook / Github / Twitter
+  def password_required?
+    provider.present? ? false : super
   end
 
   def name
@@ -28,8 +49,10 @@ class User < ApplicationRecord
   end
 
   def age
-    now = Time.now.utc.to_date
-    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    if dob
+      now = Time.now.utc.to_date
+      now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    end
   end
 
   def anniversary_date

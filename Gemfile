@@ -60,6 +60,14 @@ gem 'paperclip-cloudinary'
 gem 'active_admin_theme', path: 'lib/plugins/active_admin_theme'
 # get birthday
 gem 'birthday'
+# Use Omniauth Facebook plugin
+gem 'omniauth-facebook'
+# Use Omniauth Github plugin
+gem 'omniauth-github'
+# Use Omniauth Google plugin
+gem 'omniauth-google-oauth2'
+# Environment variables
+gem 'dotenv-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
