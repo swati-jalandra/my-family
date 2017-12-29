@@ -22,7 +22,11 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :last_sign_in_at
     column :is_admin
-    actions #if current_user.is_admin
+    actions defaults: false do |user|
+      if user.email == current_user.email
+        link_to t('active_admin.edit'), edit_admin_user_path(user)
+      end    
+    end
   end
 
   filter :first_name
