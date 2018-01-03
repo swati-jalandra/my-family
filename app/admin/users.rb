@@ -49,7 +49,7 @@ ActiveAdmin.register User do
       f.input :dob, include_blank: false, as: :datepicker
       f.input :status, as: :select, include_blank: false, collection: User::STATUS
       f.input :anniversary, include_blank: false, as: :datepicker
-      f.input :gender
+      f.input :gender, as: :select, include_blank: false, collection: User::GENDER
       f.input :mobileno
       f.input :address
       f.input :is_admin
@@ -66,7 +66,23 @@ ActiveAdmin.register User do
         params[:user].delete("password")
         params[:user].delete("password_confirmation")
       end
-      super
+      # get the currently logged in AdminUser's id
+      current_id = current_user.id
+      # load the AdminUser being updated
+      @admin_user = User.find(params[:id])
+      # update the AdminUser with new attributes
+      # if successful, this will sign out the AdminUser being updated
+      if @admin_user.update_attributes(permitted_params[:user])
+        # if the updated AdminUser was the currently logged in AdminUser, sign them back in
+        if @admin_user.id == current_id
+          sign_in(User.find(current_id), :bypass => true)
+        end
+        flash[:notice] = 'User details have been updated successfully'
+        redirect_to '/admin/users'
+      # display errors
+      else
+        super
+      end
     end
 
     def action_methods

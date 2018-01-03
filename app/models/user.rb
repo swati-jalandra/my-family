@@ -9,6 +9,7 @@ class User < ApplicationRecord
   #include Elasticsearch::Model
   #include Elasticsearch::Model::Callbacks
   STATUS = %w(single married)
+  GENDER = %w(male female)
   alias_attribute :birthday, :dob
   acts_as_birthday :birthday, :anniversary
 
