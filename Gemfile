@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # Active admin
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin'  #active admin gem
 # authentication
 gem 'devise'
 # file upload

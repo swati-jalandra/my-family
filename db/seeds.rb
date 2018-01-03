@@ -16,4 +16,5 @@ User.create!(first_name: "Ramprabhu",
              dob: '1989-01-14',
              gender: 'male',
              mobileno: '9600804251',
-             address: 'Chennai')
+             address: 'Chennai',
+             status: 'single')
