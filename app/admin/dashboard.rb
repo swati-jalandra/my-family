@@ -13,6 +13,21 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+
+    columns do
+      column do
+        panel "Login Count" do
+          render partial: 'user_login_count'
+        end
+      end
+
+      column do
+        panel "Top 10 Restaurants" do
+          #render partial: 'top_restaurant'
+        end
+      end
+    end
+
     @users = User.all
 
     @users.each do |user|
@@ -67,7 +82,16 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
-
-
   end # content
 end
+
+def users
+  User.all.map do |user|
+    {}.tap do |users|
+      users[:name] = user.name
+      users[:count] = user.sign_in_count
+    end
+  end
+end
+
+

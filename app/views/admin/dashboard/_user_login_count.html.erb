@@ -1,0 +1,8 @@
+<div class="login_count_graph_panel">
+  <%= javascript_include_tag 'd3.v4.min', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'loginAttempt', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_tag "users = #{users.to_json.html_safe};" %>
+  <script>
+      render(users);
+  </script>
+</div>
