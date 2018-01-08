@@ -13,4 +13,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-Rails.application.config.assets.precompile += %w( d3.v4.min.js loginAttempt.js )
+Rails.application.config.assets.precompile += %w( d3.v4.min.js loginAttempt.js d3.min.js topDocuments.js )

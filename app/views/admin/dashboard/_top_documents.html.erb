@@ -1,0 +1,8 @@
+<div class="documents_count_graph_panel">
+  <%= javascript_include_tag 'd3.min', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'topDocuments', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_tag "top_documents = #{top_documents.to_json.html_safe};" %>
+  <script>
+      render(top_documents);
+  </script>
+</div>

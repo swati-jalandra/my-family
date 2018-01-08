@@ -22,8 +22,8 @@ ActiveAdmin.register_page "Dashboard" do
       end
 
       column do
-        panel "Top 10 Restaurants" do
-          #render partial: 'top_restaurant'
+        panel "Total number of documents per person" do
+          render partial: 'top_documents'
         end
       end
     end
@@ -88,10 +88,18 @@ end
 def users
   User.all.map do |user|
     {}.tap do |users|
-      users[:name] = user.name
+      users[:name] = user.first_name
       users[:count] = user.sign_in_count
     end
   end
 end
 
+def top_documents
+  User.all.map do |user|
+    {}.tap do |users|
+      users[:name] = user.name
+      users[:count] = user.documents.count
+     end 
+  end
+end
 

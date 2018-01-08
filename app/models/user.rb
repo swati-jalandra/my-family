@@ -13,6 +13,7 @@ class User < ApplicationRecord
   alias_attribute :birthday, :dob
   acts_as_birthday :birthday, :anniversary
 
+  has_many :documents, dependent: :destroy
   has_many :personal_docs, class_name:'PersonalDoc', dependent: :destroy
   has_many :official_docs, class_name:'OfficialDoc', dependent: :destroy
   has_many :educational_docs, class_name:'EducationalDoc', dependent: :destroy
