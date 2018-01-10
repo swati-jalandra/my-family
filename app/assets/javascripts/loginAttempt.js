@@ -1,73 +1,100 @@
-// margin and radius
-var margin = { top: 20, right: 20, bottom: 20, left: 20},
-    width = 400 - margin.right - margin.left,
-    height = 400 - margin.top - margin.bottom,
-    radius = width / 2;
+// define margin
+var margin = { top: 20, right: 10, bottom: 100, left: 40 },
+    width = 550 - margin.right - margin.left,
+    height = 350 - margin.top - margin.bottom;
 
-var color = d3.scaleOrdinal()
-    .range(["#fabaf3", "#baddfa", "#bac9fa", "#bafae5", "#f9b9cc", "#dbb2f7", "#c5bafa"]);
+// define SVG
 
+var svg = d3.select(".login_count_graph_panel")
+    .append("svg")
+    .attr({
+       "width": width + margin.right + margin.left,
+        "height": height + margin.top + margin.bottom
+    })
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.right + ")");
 
-// arc generator
-var arc = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
+// define scale on axis
 
-// pie generator
-var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.count });
+// define the x & y scale
 
-var labelArc = d3.arc()
-    .outerRadius(radius - 50)
-    .innerRadius(radius - 50);
+var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.2 , 0.2);
 
-// define svg
-var svg = d3.select('.login_count_graph_panel')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-    .attr('transform', "translate(" + width/2 + "," + height/2+ ")");
+var yScale = d3.scale.linear().range([height, 0]);
+
+// define axis
+
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left");
 
 // Import the data
 
 function render(data){
-    // parse the data
     data.forEach(function(d){
-        d.count = +d.count;  // returns "23" => 23
+        d.count = +d.count;
         d.name = d.name;
+        console.log(d.count);
     });
 
-    // append g elements (arcs)
-    var g = svg.selectAll(".arc")
-        .data(pie(data))
-        .enter().append("g")
-        .attr("class","arc");
+    data.sort(function(a,b){
+        return b.count - a.count;
+    });
 
-    // append the path of arc
-    g.append("path")
-        .attr("d", arc)
-        .style("fill", function(d) { return color(d.data.name); })
-        .transition()
-        .ease(d3.easeLinear)
-        .duration(2000)
-        .attrTween("d", pieTween);
+    // specify the domains of x & y scales
+    xScale.domain(data.map(function(d) { return d.name; }));
+    yScale.domain([0, d3.max(data, function(d) { return d.count; })]);
 
-    // append the text (labels)
-    g.append("text")
+    //draw the bars
+    svg.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("height",0)
         .transition()
-        .ease(d3.easeLinear)
-        .duration(2000)
-        .attr("transform", function(d) { return "translate("+ labelArc.centroid(d) + ")";})
-        .attr("dy", ".35em")
-        .text(function(d) { return d.data.name; })
+        .duration(3000).delay(function(d,i) { return i * 200; })
+        .attr("y", height)
+        .attr({
+            "x": function(d) { return xScale(d.name) },
+            "y": function(d) { return yScale(d.count) },
+            "width": xScale.rangeBand(),
+            "height": function(d) { return height - yScale(d.count) }
+        })
+        .style("fill", function(d,i) { return 'rgb(52, 160, 232)'});
+
+    // label the bars
+    svg.selectAll("text")
+        .data(data)
+        .enter()
+        .append('text')
+        .text(function(d) { return d.count; })
+        .attr("x", function(d){ return xScale(d.name) + xScale.rangeBand()/2; })
+        .attr("y", function(d){ return yScale(d.count) + 12; })
+        .style("fill", "white")
+        .style("text-anchor", "middle");
+
+
+
+    //draw the x axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0,"+ height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("transform", "rotate(-60)")
+        .attr("dx", "-.8em")
+        .attr("dy", ".25em")
+        .style("text-anchor", "end")// will pull the label text out
+        .style("font-size", "12px");
+
+    //draw the y axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .style("font-size","12px");
 
 }
-
-function pieTween(b){
-    b.innerRadius = 0;
-    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-    return function (t) { return arc(i(t)) }
-}
-

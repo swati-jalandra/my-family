@@ -97,7 +97,7 @@ end
 def top_documents
   User.all.map do |user|
     {}.tap do |users|
-      users[:name] = user.name
+      users[:name] = user.first_name
       users[:count] = user.documents.count
      end 
   end
