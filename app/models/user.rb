@@ -23,6 +23,7 @@ class User < ApplicationRecord
   validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }, if: Proc.new { |user| user.status.present? }
   validates_presence_of :anniversary, message: "Please enter the anniversary date", if: Proc.new { |user| user.status != 'single' }
   validate :anniversary_date
+  has_many :reminders, dependent: :destroy
 
   class << self
     def search(text)

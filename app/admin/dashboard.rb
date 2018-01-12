@@ -6,6 +6,8 @@ ActiveAdmin.register_page "Dashboard" do
 
     # Here is an example of a simple dashboard with columns and panels.
     #
+    render partial: 'notifications'
+
     columns do
       column do
         panel "What's special today in #{Rails.env} environment ?" do
