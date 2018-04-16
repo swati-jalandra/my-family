@@ -363,7 +363,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   paperclip
   paperclip-cloudinary
-  pg
+  pg (~> 1.0.0)
   puma (~> 3.7)
   pundit
   rails (~> 5.1.4)
