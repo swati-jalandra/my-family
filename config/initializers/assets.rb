@@ -18,4 +18,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( d3.v4.min.js loginAttempt.js 
 												  d3.min.js topDocuments.js 
 												  notify/notify.js
-												  notify/notify.min.js)
+												  notify/notify.min.js cable.js)

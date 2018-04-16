@@ -19,11 +19,12 @@ class User < ApplicationRecord
   has_many :educational_docs, class_name:'EducationalDoc', dependent: :destroy
   validates :first_name, :last_name, :dob, :gender, :mobileno, :address, :status, presence: true
   validates :mobileno, uniqueness: true, if: Proc.new { |user| user.mobileno.present? }
-  validates_format_of :dob, :with => /\d{4}\-\d{2}\-\d{2}/, :message => '^Date must be in the following format: yyyy/mm/dd', if: Proc.new { |date| date.dob.present? }
-  validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }, if: Proc.new { |user| user.status.present? }
-  validates_presence_of :anniversary, message: "Please enter the anniversary date", if: Proc.new { |user| user.status != 'single' }
+  validates_format_of :dob, :with => /\d{4}\-\d{2}\-\d{2}/, :chat => '^Date must be in the following format: yyyy/mm/dd', if: Proc.new { |date| date.dob.present? }
+  validates :status, inclusion: {in: STATUS, chat: "%{value} is not a valid status" }, if: Proc.new { |user| user.status.present? }
+  validates_presence_of :anniversary, chat: "Please enter the anniversary date", if: Proc.new { |user| user.status != 'single' }
   validate :anniversary_date
   has_many :reminders, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   class << self
     def search(text)

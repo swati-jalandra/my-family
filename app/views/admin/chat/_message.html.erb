@@ -1,0 +1,54 @@
+<div class="index_as_table">
+  <table border="0" cellspacing="0" cellpadding="0" id="index_table_users" class="index_table index" paginator="true">
+    <thead>
+    <tr>
+      <th class="col col-selectable">
+        <div class="resource_selection_toggle_cell">
+          <label>
+            <input type="checkbox" id="collection_selection_toggle_all" name="collection_selection_toggle_all" class="toggle_all">
+          </label>
+        </div>
+      </th>
+      <th class="col col-name">Name</th>
+      <th class="col col-name">Message</th>
+      <th class="col col-name">CreatedAt</th>
+    </tr>
+    </thead>
+    <tbody id="message_display">
+      <% messages.each do |message| %>
+          <tr class="odd" id="user_1">
+            <td class="col col-selectable">
+              <div class="resource_selection_cell">
+                <input type="checkbox" id="batch_action_item_1" value="1" class="collection_selection" name="collection_selection[]">
+              </div>
+            </td>
+            <td class="col col-name"><%= message.user.name %></td>
+            <td class="col col-email"><%= message.content %></td>
+            <td class="col col-email"><%= message.created_at.strftime("%d/%m/%Y") %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="active_admin_content" class="without_sidebar">
+  <div id="main_content_wrapper">
+    <div id="main_content">
+      <form novalidate="novalidate" class="formtastic message" id="new_message" action="/admin/messages" accept-charset="UTF-8" method="post">
+        <input name="utf8" value="✓" type="hidden">
+        <input name="authenticity_token" value="SkW/jgsONQhm8hZtIHyahS9LqM/ddrXQE8NnOexdthcM2rcYHfMe+tlspIBrb/qBFOIfG4GYwJU7BO7TNpwwnQ==" type="hidden">
+        <fieldset class="inputs">
+          <ol>
+            <li class="text input optional" id="message_content_input">
+              <label for="message_content" class="label">Message</label>
+              <textarea rows="20" id="message_content" name="message[content]"></textarea>
+            </li>
+          </ol>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%= hidden_field_tag("current_user", current_user.id, :id => "current_user_admin") %>
+
