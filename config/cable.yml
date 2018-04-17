@@ -7,4 +7,5 @@ test:
 production:
   adapter: redis
   url: redis://redis-18355.c44.us-east-1-2.ec2.cloud.redislabs.com:18355
+  password: 6YGKWuq4e5Ff09bRYy6U2yqkv5vwtHPp
   channel_prefix: my-family_production
