@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: redis://redis-18355.c44.us-east-1-2.ec2.cloud.redislabs.com:18355
   channel_prefix: my-family_production
