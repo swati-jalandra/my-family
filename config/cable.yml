@@ -6,5 +6,6 @@ test:
 
 production:
   adapter: redis
-  url: redis://ram-family12345678@redis-18355.c44.us-east-1-2.ec2.cloud.redislabs.com:18355
+  url: redis://redis-18355.c44.us-east-1-2.ec2.cloud.redislabs.com:18355
+  password: ram-family12345678
   channel_prefix: my-family_production
